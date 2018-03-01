@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <h1 style="text-align:center">
+    Welcome to demo app - Kushal Kochar
+  </h1>
+
+  <div class="row col-sm-12" id='centerDiv' *ngIf="showLoginPage">
+
+    <div class="col-sm-12">
+      <div class="col-sm-6">
+        <label id="emailLabel">Email address</label>
+      </div>
+      <div class="col-sm-6">
+        <input class="form-control input-md" id="firstNameText" type="text" [(ngModel)]="user.emailId">
+      </div>
+    </div>
+
+
+
+    <div class="col-sm-12">
+
+      <div class="col-sm-6" style="padding: 15px">
+
+          <div class="col-sm-12 alert alert-danger" style="margin-left:0px;" *ngIf="errorMessage!=''">
+              <p>
+                <strong>Error!</strong> {{errorMessage}}</p>
+            </div>
+
+        <button type="button" class="btn btn-success btn-md" (click)="login()">Login</button>
+      </div>
+      <div class="col-sm-6" style="padding:0px,15px,15px, 15px">
+        <button type="button" class="btn btn-primary btn-md" (click)="showRegisterPage()">New Registration</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row col-sm-12" *ngIf="!showLoginPage">
+
+    <div class="col-sm-6">
+      <div class="col-sm-12">
+        <label id="firstNameLabel">First Name</label>
+      </div>
+      <div class="col-sm-12">
+        <input class="form-control input-md" id="firstNameText" type="text" [(ngModel)]="user.firstName">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-12">
+        <label id="lastNameLabel">Last Name</label>
+      </div>
+      <div class="col-sm-12">
+        <input class="form-control input-md" id="lastNameText" type="text" [(ngModel)]="user.lastName">
+      </div>
+    </div>
+    <div class="col-sm-12" style="padding-top: 20px"></div>
+    <div class="col-sm-6">
+      <div class="col-sm-12">
+        <label id="dobLabel">Date of birth</label>
+      </div>
+      <div class="col-sm-12">
+        <my-date-picker name="mydate" class=" input-md" [(ngModel)]="modelDate" [options]="myDatePickerOption"></my-date-picker>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-12">
+        <label id="emailLabel">Email address</label>
+      </div>
+      <div class="col-sm-12">
+        <input class="form-control input-md" id="firstNameText" type="text" [disabled]="isUserLoggedIn" [(ngModel)]="user.emailId">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="col-sm-12" style="padding: 30px">
+
+      <agm-map [latitude]="user.lat" [longitude]="user.lng" (mapClick)="locationSeleted($event)">
+        <agm-marker [latitude]="user.lat" [longitude]="user.lng"></agm-marker>
+      </agm-map>
+
+    </div>
+
+    <div class="col-sm-12">
+        <div class="alert alert-danger" style="margin-left:15px;margin-right:15px;padding-right:15px;" *ngIf="errorMessage!=''">
+            <p>
+              <strong>Error!</strong> {{errorMessage}}</p>
+          </div>
+
+      <div class="col-sm-6" style="padding: 15px">
+          
+        <button *ngIf="!isUserLoggedIn" type="button" class="btn btn-success btn-md" (click)="register()">Register</button>
+        <button *ngIf="isUserLoggedIn" type="button" class="btn btn-success btn-md" (click)="updateDetails()">Update</button>
+        <button *ngIf="isUserLoggedIn" type="button" class="btn btn-danger btn-md pull-left" (click)="logoff()">Logoff</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
