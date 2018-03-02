@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
   }
 
   locationSeleted(event) {
-    console.log("here : ", event);
+
     this.user.lat = event.coords.lat;
     this.user.lng = event.coords.lng;
     this.locationSelected = true;
@@ -147,6 +147,11 @@ export class AppComponent implements OnInit {
   }
 
   updateDetails() {
+
+    if (!this.fieldsValid()) {
+      return;
+    }
+
     this.user.dob = this.modelDate.date;
 
     this.userList.splice(this.userList.findIndex(a => a.emailId === this.user.emailId.toLowerCase().trim()), 1, this.user);
@@ -168,6 +173,8 @@ export class AppComponent implements OnInit {
       this.errorMessage = "Email Id is not valid."
       return false;
     }
+
+    this.errorMessage = "";
 
     return true;
   }
